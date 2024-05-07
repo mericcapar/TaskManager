@@ -3,29 +3,29 @@ import './App.css';
 import React, {useState , useEffect} from 'react'
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css'
+import TodoView from './components/TodoListView'
 
 function App() {
+
   const [todoList , setTodoList] = useState([{}])
   const [title ,setTitle] = useState('')
   const [desc , setDesc] = useState('')
 
   // Read all todos
   useEffect(() => {
-    axios.get('https://localhost:8000/api/todo')
-    .then(res => {
-      setTodoList(res.data)
-    })
+    axios.get('https://10.0.2.2:8000/api/todo')
+      .then(res => {
+        setTodoList(res.data)
+      })
   });
 
   //Post a todo
 
   const addTodoHandler = () => {
-    axios.post('https://localhost:8000/api/todo/' , {'title':
-    title , 'description':desc})
+    axios.post('https://10.0.2.2:8000/api/todo/' , {'title':
+    title , 'description': desc })
     .then(res => console.log(res))
   };
-
-
   
 
   return (
@@ -39,17 +39,17 @@ function App() {
       <div className="card-body">
       <h5 className=" card text-white bg-dark mb-3"> Gorev Ekleyin</h5>
         <span className="card-text">
-        <input className="mb-2 form-control titleIn"
-        placeholder='Gorev Girin'/> 
-        <input className="mb-2 form-control desIn"
-        placeholder="Gorev Aciklamasi"/>
-        <button className="btn btn-outline-primary mx-2 mb-5" style={
-          {'borderRadius':'50px',"fontWeight":"bold"}}>Gorevi Kaydet</button>
+        <input className="mb-2 form-control titleIn" onChange={event => setTitle(event.target.value)} placeholder='Gorev Girin'/> 
+        <input className="mb-2 form-control desIn" onChange={event => setDesc(event.target.value)} placeholder="Gorev Aciklamasi"/>
+        <button className="btn btn-outline-primary mx-2 mb-3" style=
+        {{'borderRadius':'50px',"fontWeight":"bold"}} onClick=
+        {addTodoHandler}> Gorevi Kaydet</button>
+        
         </span>
-      <h5 className="card text-white bg-dark mb-3"> Kayitli Gorevlerin</h5>
-      <div>
-        {/* Todo items -external component */}
-      </div>
+        <h5 className="card text-white bg-dark mb-3"> Kayitli Gorevlerin</h5>
+        <div>
+        <TodoView todoList={todoList} />
+        </div>
 
       </div>
       <h6 className="card text-dark bg-warning py-1 mb-0"> Made with love by Meric</h6>
