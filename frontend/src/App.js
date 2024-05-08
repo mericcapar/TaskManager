@@ -5,7 +5,7 @@ import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import TodoView from './components/TodoListView'
 
-function App() {
+function App()  {
 
   const [todoList , setTodoList] = useState([{}])
   const [title ,setTitle] = useState('')
@@ -13,7 +13,7 @@ function App() {
 
   // Read all todos
   useEffect(() => {
-    axios.get('https://10.0.2.2:8000/api/todo')
+    axios.get('http://127.0.0.1:8000/api/todo')
       .then(res => {
         setTodoList(res.data)
       })
@@ -22,7 +22,7 @@ function App() {
   //Post a todo
 
   const addTodoHandler = () => {
-    axios.post('https://10.0.2.2:8000/api/todo/' , {'title':
+    axios.post('http://127.0.0.1:8000/api/todo/' , {'title':
     title , 'description': desc })
     .then(res => console.log(res))
   };
@@ -34,7 +34,7 @@ function App() {
       align-items-center mx-auto" style={{ width: "400px",
       backgroundColor: "white", marginTop: "15px" }}>
       <h1 className="card text-white bg-primary mb-1" 
-      styleName={{ maxWidth: "20rem" }}>Task Manager</h1>
+      style={{ maxWidth: "20rem" }}>Task Manager</h1>
       <h6 className= "card text-white bg-primary mb-3">FASTAPI - React - MongoDB</h6>
       <div className="card-body">
       <h5 className=" card text-white bg-dark mb-3"> Gorev Ekleyin</h5>

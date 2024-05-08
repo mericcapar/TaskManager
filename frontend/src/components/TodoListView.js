@@ -3,9 +3,9 @@ import TodoItem from "./Todo";
 function TodoView(props){
     return (
         <div>
-            <u1>
+            <ul>
                 {props.todoList.map(todo => <TodoItem todo={todo} />)}
-            </u1>
+            </ul>
         </div>
     )
 }
